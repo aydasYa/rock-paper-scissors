@@ -9,8 +9,8 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    const randomInt = getRandomInt(3);
-    return (randomInt === 0) ? "Rock" : (randomInt === 1) ? "Paper" : "Scissors";
+    const getNumber = parseInt(prompt("Enter a number between 0 and 2"));
+    return (getNumber === 0) ? "Rock" : (getNumber === 1) ? "Paper" : "Scissors";
 }
 
 // define winning conditions
