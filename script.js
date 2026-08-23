@@ -2,7 +2,6 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max)
 }
 
-
 function getComputerChoice() {
     const randomInt = getRandomInt(3);
     return (randomInt === 0) ? "Rock" : (randomInt === 1) ? "Paper" : "Scissors";
