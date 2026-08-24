@@ -1,24 +1,37 @@
-FUNCTION playGame()
-    SET win = 0
-    SET points = 0
+START
+    CALL playGame
 
-    DISPLAY "Enter Rock, Paper, or Scissors:"
-    SET humanChoice = INPUT()
+FUNCTION playGame
+    INITIALIZE scores
 
-    // Using standard JS math concept in plain English
-    SET randomInt = GENERATE_RANDOM_INT(1, 3)
+    FUNCTION playRound(humanChoice, computerChoice)
+        SET roundWinner TO CALL determineRoundWinner(
+            humanChoice,
+            computerChoice
+        )
+        UPDATE score for roundWinner
+            IF roundWinner EQUALS "human"
+                INCREMENT humanScore
+            ELSE IF roundWinner EQUALS "computer"
+                INCREMENT computerScore
+            ELSE
+                DO NOT CHANGE score
+            END IF
+            
+        DISPLAY round result
+    END FUNCTION
 
-    IF randomInt == 1 THEN
-        SET computerChoice = "Rock"
-    ELSE IF randomInt == 2 THEN
-        SET computerChoice = "Paper"
-    ELSE
-        SET computerChoice = "Scissors"
-    ENDIF
-ENDFUNCTION
+    REPEAT 5 ROUNDS
+        GET humanChoice
+        GET computerChoice
+        CALL playRound(humanChoice, computerChoice)
+    END REPEAT
 
-GLOBAL SCOPE:
-    SET humanScore = 0
-    SET computerScore = 0
+    EVALUATE game winner
+    DISPLAY game winner
+END FUNCTION
 
-    
+FUNCTION determineRoundWinner(humanChoice, computerChoice)
+    EVALUATE rules
+    RETURN "human", "computer" OR "tie"
+END FUNCTION
