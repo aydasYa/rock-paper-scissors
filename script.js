@@ -4,26 +4,67 @@ function getRandomInt(max) {
 
 function getComputerChoice() {
     const randomInt = getRandomInt(3);
-    return (randomInt === 0) ? "Rock" : (randomInt === 1) ? "Paper" : "Scissors";
+    return (randomInt === 0) ? "rock" : (randomInt === 1) ? "paper" : "scissors";
 }
 
 function getHumanChoice() {
-    const getNumber = parseInt(prompt("Enter a number between 0 and 2"));
-    return (getNumber === 0) ? "Rock" : (getNumber === 1) ? "Paper" : "Scissors";
+    return prompt("Enter Rock, Paper or Scissors: ").toLowerCase();
 }
 
-// define winning conditions
-const computer = getComputerChoice();
-const human = getHumanChoice();
-
-if (human === computer) {
-   console.log("It's a tie!");
-} else if (
-    (human === "Rock" && computer === "Scissors") ||
-    (human == "Paper" && computer === "Rock") ||
-    (human === "Scissors" && computer === "Paper")
-) {
-    console.log("Human wins!");
-} else {
-    console.log("Computer wins!");
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        console.log("It's a tie!");
+        console.log(`Computer choice was: ${computerChoice}`);
+    } else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        console.log("Human wins this round!");
+        console.log(`Computer choice was: ${computerChoice}`);
+        return "human";
+    } else {
+        console.log("Computer wins this round!");
+        console.log(`Computer choice was: ${computerChoice}`);
+        return "computer";
+    }
 }
+
+function playGame() {
+    let roundWinner;
+    let humanPoints = 0;
+    let computerPoints = 0;
+    // play 5 rounds
+    for (let i = 1; i <= 5; i++) {
+        console.log(`current round: ${i}`);
+        // get choices
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        roundWinner = playRound(humanSelection, computerSelection);
+        if (roundWinner === "human") humanPoints++;
+        else if (roundWinner === "computer") computerPoints++;
+
+    }
+
+    if (humanPoints === computerPoints) {
+        console.log("Game is a tie!");
+    } else if (humanPoints > computerPoints) {
+        console.log("Human won the game!");
+    } else {
+        console.log("Computer won the game!");
+    }
+    
+
+    console.log(`com: ${computerPoints} | human: ${humanPoints}`);
+}
+
+playGame();
+
+
+
+
+
+
+
+

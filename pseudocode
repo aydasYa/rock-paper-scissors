@@ -1,0 +1,24 @@
+FUNCTION playGame()
+    SET win = 0
+    SET points = 0
+
+    DISPLAY "Enter Rock, Paper, or Scissors:"
+    SET humanChoice = INPUT()
+
+    // Using standard JS math concept in plain English
+    SET randomInt = GENERATE_RANDOM_INT(1, 3)
+
+    IF randomInt == 1 THEN
+        SET computerChoice = "Rock"
+    ELSE IF randomInt == 2 THEN
+        SET computerChoice = "Paper"
+    ELSE
+        SET computerChoice = "Scissors"
+    ENDIF
+ENDFUNCTION
+
+GLOBAL SCOPE:
+    SET humanScore = 0
+    SET computerScore = 0
+
+    
