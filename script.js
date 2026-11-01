@@ -44,15 +44,19 @@ function playGame() {
         return roundWinner;
     }
 
-    // play 5 rounds
-    for (let i = 1; i <= 5; i++) {
-        console.log(`current round: ${i}`);
+    const rockBtn = document.createElement("button");
+    const paperBtn = document.createElement("button");
+    const scissorsBtn = document.createElement("button");
 
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
+    rockBtn.textContent = "Rock";
+    paperBtn.textContent = "Paper";
+    scissorsBtn.textContent = "Scissors";
 
-        playRound(humanSelection, computerSelection);
-    }
+    document.body.append(rockBtn, paperBtn, scissorsBtn);
+
+    rockBtn.addEventListener('click', () => playRound("rock", getComputerChoice()));
+    paperBtn.addEventListener('click', () => playRound("paper", getComputerChoice()));
+    scissorsBtn.addEventListener('click', () => playRound("scissors", getComputerChoice()));
 
     if (humanPoints === computerPoints) console.log("Game is a tie!");
     else if (humanPoints > computerPoints) console.log("Human won the game!");
