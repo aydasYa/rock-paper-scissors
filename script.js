@@ -29,10 +29,10 @@ function playGame() {
     function playRound(humanChoice, computerChoice) {
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
         if (roundWinner === "human") {
+            humanPoints += 1;
             display.textContent = '';
             display.textContent = `Player won this round.`;
             playerScore.textContent = `Player score: ${humanPoints}`;
-            humanPoints += 1;
         } else if (roundWinner === "computer") {
             computerPoints += 1;
             display.textContent = '';
@@ -71,8 +71,8 @@ function playGame() {
     const playerScore = document.createElement('p');
     const computerScore = document.createElement('p');
     scoreTitle.textContent = "Scoreboard";
-    playerScore.textContent = "Player score: ";
-    computerScore.textContent = "Computer score: ";
+    playerScore.textContent = "Player score: 0";
+    computerScore.textContent = "Computer score: 0";
 
     const gameWinner = document.createElement('p');
     gameWinner.textContent = "";
