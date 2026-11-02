@@ -30,16 +30,21 @@ function playGame() {
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
         if (roundWinner === "human") {
             display.textContent = '';
-            display.textContent = `${roundWinner} won this round.`;
+            display.textContent = `Player won this round.`;
+            playerScore.textContent = `Player score: ${humanPoints}`;
             humanPoints += 1;
         } else if (roundWinner === "computer") {
             computerPoints += 1;
             display.textContent = '';
-            display.textContent = `${roundWinner} won this round.`;
+            display.textContent = `Computer won this round.`;
+            computerScore.textContent = `Computer score: ${computerPoints}`;
         } else {
             display.textContent = '';
             display.textContent = `Tie detected`;
         }
+
+        if (humanPoints == 5) gameWinner.textContent = "Player Won!";
+        else if (computerPoints == 5) gameWinner.textContent = "Computer Won!";
 
         return roundWinner;
     }
@@ -61,7 +66,20 @@ function playGame() {
 
     const display = document.createElement('div');
 
-    document.body.append(choiceContainer, display);
+    const scoreboard = document.createElement('div');
+    const scoreTitle = document.createElement("h2");
+    const playerScore = document.createElement('p');
+    const computerScore = document.createElement('p');
+    scoreTitle.textContent = "Scoreboard";
+    playerScore.textContent = "Player score: ";
+    computerScore.textContent = "Computer score: ";
+
+    const gameWinner = document.createElement('p');
+    gameWinner.textContent = "";
+
+    scoreboard.append(scoreTitle, playerScore, computerScore, gameWinner);
+
+    document.body.append(choiceContainer, display, scoreboard);
 }
 
 playGame();
