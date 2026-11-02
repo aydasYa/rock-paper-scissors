@@ -29,21 +29,40 @@ function determineRoundWinner(humanChoice, computerChoice) {
 function playGame() {
     let humanPoints = 0;
     let computerPoints = 0;
+    let totalRoundsPlayed = 1;
+    let tieCounter = 0;
 
     function playRound(humanChoice, computerChoice) {
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
-        
-        if (roundWinner === "human") {
-            humanPoints += 1;
-            console.log("Human won this round");
-        } else if (roundWinner === "computer") {
-            computerPoints += 1;
-            console.log("Computer won this round");
-        } else console.log("Tie detected")
-    
+        if (totalRoundsPlayed < 5) {
+            if (roundWinner === "human") {
+                humanPoints += 1;
+                console.log("Human won this round");
+            } else if (roundWinner === "computer") {
+                computerPoints += 1;
+                console.log("Computer won this round");
+            } else console.log("Tie detected")
+
+            console.log(`com: ${computerPoints} | human: ${humanPoints} | ties: ${tieCounter}`);
+            console.log(`total played rounds: ${totalRoundsPlayed}`);
+
+        } else {
+            if (humanPoints === computerPoints) {
+                console.log("Game is a tie!");
+                tieCounter++;
+            }
+            else if (humanPoints > computerPoints) console.log("Human won the game!");
+            else console.log("Computer won the game!");
+
+            // log the end game score table to the console
+            console.log(`total played rounds: ${totalRoundsPlayed}`);
+        }
+
+        totalRoundsPlayed++;
         return roundWinner;
     }
 
+    const choiceContainer = document.createElement('div');
     const rockBtn = document.createElement("button");
     const paperBtn = document.createElement("button");
     const scissorsBtn = document.createElement("button");
@@ -52,18 +71,13 @@ function playGame() {
     paperBtn.textContent = "Paper";
     scissorsBtn.textContent = "Scissors";
 
-    document.body.append(rockBtn, paperBtn, scissorsBtn);
+    choiceContainer.append(rockBtn, paperBtn, scissorsBtn);
+
+    document.body.appendChild(choiceContainer);
 
     rockBtn.addEventListener('click', () => playRound("rock", getComputerChoice()));
     paperBtn.addEventListener('click', () => playRound("paper", getComputerChoice()));
     scissorsBtn.addEventListener('click', () => playRound("scissors", getComputerChoice()));
-
-    if (humanPoints === computerPoints) console.log("Game is a tie!");
-    else if (humanPoints > computerPoints) console.log("Human won the game!");
-    else console.log("Computer won the game!");
-
-    // log the end game score table to the console
-    console.log(`com: ${computerPoints} | human: ${humanPoints}`);
 }
 
 playGame();
