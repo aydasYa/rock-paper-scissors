@@ -7,10 +7,6 @@ function getComputerChoice() {
     return (randomInt === 0) ? "rock" : (randomInt === 1) ? "paper" : "scissors";
 }
 
-function getHumanChoice() {
-    return prompt("Enter rock, paper or scissors: ").toLowerCase();
-}
-
 function determineRoundWinner(humanChoice, computerChoice) {
     // evaluates rules
     if (humanChoice === computerChoice) {
@@ -29,35 +25,22 @@ function determineRoundWinner(humanChoice, computerChoice) {
 function playGame() {
     let humanPoints = 0;
     let computerPoints = 0;
-    let totalRoundsPlayed = 1;
-    let tieCounter = 0;
 
     function playRound(humanChoice, computerChoice) {
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
-        if (totalRoundsPlayed < 5) {
-            if (roundWinner === "human") {
-                display.textContent = '';
-                display.textContent = `${roundWinner} won this round.`;
-                humanPoints += 1;
-            } else if (roundWinner === "computer") {
-                computerPoints += 1;
-                display.textContent = '';
-                display.textContent = `${roundWinner} won this round.`;
-            } else {
-                display.textContent = '';
-                display.textContent = `Tie detected`;
-            }
-
+        if (roundWinner === "human") {
+            display.textContent = '';
+            display.textContent = `${roundWinner} won this round.`;
+            humanPoints += 1;
+        } else if (roundWinner === "computer") {
+            computerPoints += 1;
+            display.textContent = '';
+            display.textContent = `${roundWinner} won this round.`;
         } else {
-            if (humanPoints === computerPoints) {
-                display.textContent = "Game is a tie!";
-                tieCounter++;
-            }
-            else if (humanPoints > computerPoints) display.textContent = "Human won the game!";
-            else display.textContent = "Computer won the game!";
+            display.textContent = '';
+            display.textContent = `Tie detected`;
         }
 
-        totalRoundsPlayed++;
         return roundWinner;
     }
 
@@ -71,11 +54,11 @@ function playGame() {
     scissorsBtn.textContent = "Scissors";
     choiceContainer.append(rockBtn, paperBtn, scissorsBtn);
 
-    
+
     rockBtn.addEventListener('click', () => playRound("rock", getComputerChoice()));
     paperBtn.addEventListener('click', () => playRound("paper", getComputerChoice()));
     scissorsBtn.addEventListener('click', () => playRound("scissors", getComputerChoice()));
-    
+
     const display = document.createElement('div');
 
     document.body.append(choiceContainer, display);
