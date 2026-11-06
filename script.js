@@ -21,12 +21,13 @@ function determineRoundWinner(humanChoice, computerChoice) {
         return "computer";
     }
 }
-
 function playGame() {
     let humanPoints = 0;
     let computerPoints = 0;
 
     function playRound(humanChoice, computerChoice) {
+        if (humanPoints == 5 || computerPoints == 5) return
+        // continue if no one has wone the game yet
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
         if (roundWinner === "human") {
             humanPoints += 1;
