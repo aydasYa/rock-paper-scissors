@@ -4,14 +4,13 @@ function getRandomInt(max) {
 
 function getComputerChoice() {
     const randomInt = getRandomInt(3);
-    
+
     if (randomInt === 0) return "rock";
     else if (randomInt === 1) return "paper";
     else return "scissors";
 }
 
 function determineRoundWinner(humanChoice, computerChoice) {
-    // evaluates rules
     if (humanChoice === computerChoice) {
         return "tie";
     } else if (
@@ -32,7 +31,6 @@ function playGame() {
     function playRound(humanChoice, computerChoice) {
         // Guard Clause
         if (humanPoints === winningScore || computerPoints === winningScore) return
-        // continue if no one has wone the game yet
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
         if (roundWinner === "human") {
             humanPoints += 1;
@@ -46,10 +44,18 @@ function playGame() {
             display.textContent = `Tie detected`;
         }
 
-        if (humanPoints === winningScore) gameWinner.textContent = "Player Won!";
-        else if (computerPoints === winningScore) gameWinner.textContent = "Computer Won!";
+        announceGameWinner();
 
         return roundWinner;
+    }
+
+    function announceGameWinner() {
+        if (humanPoints === winningScore) {
+            gameWinner.textContent = "Player Won!";
+        }
+        else if (computerPoints === winningScore) {
+            gameWinner.textContent = "Computer Won!";
+        }
     }
 
     function createChoiceButton(label, choice) {
