@@ -34,14 +34,14 @@ function playGame() {
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
         if (roundWinner === "human") {
             humanPoints += 1;
-            display.textContent = `Player won this round.`;
+            roundResultDisplay.textContent = `Player won this round.`;
             playerScore.textContent = `Player score: ${humanPoints}`;
         } else if (roundWinner === "computer") {
             computerPoints += 1;
-            display.textContent = `Computer won this round.`;
+            roundResultDisplay.textContent = `Computer won this round.`;
             computerScore.textContent = `Computer score: ${computerPoints}`;
         } else {
-            display.textContent = `Tie detected`;
+            roundResultDisplay.textContent = `Tie detected`;
         }
 
         announceGameWinner();
@@ -72,7 +72,7 @@ function playGame() {
     const scissorsBtn = createChoiceButton("Scissors", "scissors");
     choiceContainer.append(rockBtn, paperBtn, scissorsBtn);
 
-    const display = document.createElement('div');
+    const roundResultDisplay = document.createElement('div');
 
     const scoreboard = document.createElement('div');
     const scoreTitle = document.createElement("h2");
@@ -87,7 +87,7 @@ function playGame() {
 
     scoreboard.append(scoreTitle, playerScore, computerScore, gameWinner);
 
-    document.body.append(choiceContainer, display, scoreboard);
+    document.body.append(choiceContainer, roundResultDisplay, scoreboard);
 }
 
 playGame();
