@@ -4,7 +4,10 @@ function getRandomInt(max) {
 
 function getComputerChoice() {
     const randomInt = getRandomInt(3);
-    return (randomInt === 0) ? "rock" : (randomInt === 1) ? "paper" : "scissors";
+    
+    if (randomInt == 0) return "rock";
+    else if (randomInt == 1) return "paper";
+    return "scissors";
 }
 
 function determineRoundWinner(humanChoice, computerChoice) {
@@ -22,30 +25,29 @@ function determineRoundWinner(humanChoice, computerChoice) {
     }
 }
 function playGame() {
+    const winningScore = 5;
     let humanPoints = 0;
     let computerPoints = 0;
 
     function playRound(humanChoice, computerChoice) {
-        if (humanPoints == 5 || computerPoints == 5) return
+        // Guard Clause
+        if (humanPoints == winningScore || computerPoints == winningScore) return
         // continue if no one has wone the game yet
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
         if (roundWinner === "human") {
             humanPoints += 1;
-            display.textContent = '';
             display.textContent = `Player won this round.`;
             playerScore.textContent = `Player score: ${humanPoints}`;
         } else if (roundWinner === "computer") {
             computerPoints += 1;
-            display.textContent = '';
             display.textContent = `Computer won this round.`;
             computerScore.textContent = `Computer score: ${computerPoints}`;
         } else {
-            display.textContent = '';
             display.textContent = `Tie detected`;
         }
 
-        if (humanPoints == 5) gameWinner.textContent = "Player Won!";
-        else if (computerPoints == 5) gameWinner.textContent = "Computer Won!";
+        if (humanPoints == winningScore) gameWinner.textContent = "Player Won!";
+        else if (computerPoints == winningScore) gameWinner.textContent = "Computer Won!";
 
         return roundWinner;
     }
