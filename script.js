@@ -23,6 +23,7 @@ function determineRoundWinner(humanChoice, computerChoice) {
         return "computer";
     }
 }
+
 function playGame() {
     const winningScore = 5;
     let humanPoints = 0;
