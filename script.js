@@ -5,9 +5,9 @@ function getRandomInt(max) {
 function getComputerChoice() {
     const randomInt = getRandomInt(3);
     
-    if (randomInt == 0) return "rock";
-    else if (randomInt == 1) return "paper";
-    return "scissors";
+    if (randomInt === 0) return "rock";
+    else if (randomInt === 1) return "paper";
+    else return "scissors";
 }
 
 function determineRoundWinner(humanChoice, computerChoice) {
@@ -31,7 +31,7 @@ function playGame() {
 
     function playRound(humanChoice, computerChoice) {
         // Guard Clause
-        if (humanPoints == winningScore || computerPoints == winningScore) return
+        if (humanPoints === winningScore || computerPoints === winningScore) return
         // continue if no one has wone the game yet
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
         if (roundWinner === "human") {
@@ -46,26 +46,25 @@ function playGame() {
             display.textContent = `Tie detected`;
         }
 
-        if (humanPoints == winningScore) gameWinner.textContent = "Player Won!";
-        else if (computerPoints == winningScore) gameWinner.textContent = "Computer Won!";
+        if (humanPoints === winningScore) gameWinner.textContent = "Player Won!";
+        else if (computerPoints === winningScore) gameWinner.textContent = "Computer Won!";
 
         return roundWinner;
     }
 
+    function createChoiceButton(label, choice) {
+        const button = document.createElement('button');
+        button.textContent = label;
+        button.addEventListener('click', () => playRound(choice, getComputerChoice()));
+
+        return button;
+    }
+
     const choiceContainer = document.createElement('div');
-    const rockBtn = document.createElement("button");
-    const paperBtn = document.createElement("button");
-    const scissorsBtn = document.createElement("button");
-
-    rockBtn.textContent = "Rock";
-    paperBtn.textContent = "Paper";
-    scissorsBtn.textContent = "Scissors";
+    const rockBtn = createChoiceButton("Rock", "rock");
+    const paperBtn = createChoiceButton("Paper", "paper");
+    const scissorsBtn = createChoiceButton("Scissors", "scissors");
     choiceContainer.append(rockBtn, paperBtn, scissorsBtn);
-
-
-    rockBtn.addEventListener('click', () => playRound("rock", getComputerChoice()));
-    paperBtn.addEventListener('click', () => playRound("paper", getComputerChoice()));
-    scissorsBtn.addEventListener('click', () => playRound("scissors", getComputerChoice()));
 
     const display = document.createElement('div');
 
