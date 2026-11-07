@@ -32,21 +32,22 @@ function playGame() {
         // Guard Clause
         if (humanPoints === winningScore || computerPoints === winningScore) return
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
+
+        awardRoundPoints(roundWinner);
         if (roundWinner === "human") {
-            humanPoints += 1;
-            roundResultDisplay.textContent = `Player won this round.`;
+            roundResultDisplay.textContent = 'Player won this round.';
             playerScore.textContent = `Player score: ${humanPoints}`;
         } else if (roundWinner === "computer") {
-            computerPoints += 1;
             roundResultDisplay.textContent = `Computer won this round.`;
             computerScore.textContent = `Computer score: ${computerPoints}`;
-        } else {
-            roundResultDisplay.textContent = `Tie detected`;
-        }
+        } else roundResultDisplay.textContent =  "Tie detected";
 
         announceGameWinner();
+    }
 
-        return roundWinner;
+    function awardRoundPoints(roundWinner) {
+        if (roundWinner === "human") humanPoints++;
+        else if (roundWinner === "computer") computerPoints++;
     }
 
     function announceGameWinner() {
