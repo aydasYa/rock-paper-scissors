@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 32px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: floralwhite;
+    font-family: system-ui, sans-serif;
+    color: rgb(17, 24, 39);
+    line-height: 1.5;
+}
+
+#game {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    background-color: white;
+    padding: 32px;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 720px;
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 20px;
+}
+
+#game h1 {
+    margin: 0 0 8px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 1.2;
+}
+
+.game-hint {
+    margin: 0 0 28px;
+    font-size: 18px;
+    text-align: center;
+    color: rgb(107, 114, 128);
+}
+
+.choice-hint {
+    margin: 0 0 12px;
+    text-align: center;
+    color: rgb(107, 114, 128);
+    font-size: 18px;
+}
+
+.choices {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.choices button {
+    flex: 1 1 120px;
+    padding: 16px;
+    font: inherit;
+    background-color: rgb(243, 244, 246);
+    border: 1px solid rgb(156, 163, 175);
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.choices button:hover {
+    background-color: rgb(232, 243, 241);
+    border-color: rgb(15, 118, 110);
+}
+
+.choices button:focus-visible {
+    outline: 3px solid rgb(15, 118, 110);
+    outline-offset: 3px;
+}
+
+.score-title {
+    margin: 0 0 12px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.score-cards {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.score-card {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 20px;
+    background-color: rgb(243, 244, 246);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.score-card-winner {
+    background-color: rgb(220, 245, 242);
+    border-color: rgb(15, 118, 110);
+}
+
+.score-label {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.score-value {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.round-result {
+    margin: 16px 0;
+    text-align: center;
+    color: rgb(107, 114, 128);
+}
+
+.game-winner {
+    margin: 16px 0 0;
+    padding: 16px;
+    background-color: rgb(220, 245, 242);
+    color: rgb(15, 118, 110);
+    border-radius: 12px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    #game {
+        padding: 20px;
+    }
+
+    #game h1 {
+        font-size: 28px;
+    }
+
+    .score-card {
+        padding: 16px 8px;
+    }
+
+    .score-label {
+        font-size: 18px;
+    }
+
+    .choices button {
+        flex-basis: 100%;
+    }
+}
