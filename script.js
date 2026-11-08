@@ -1,5 +1,5 @@
 function getRandomInt(max) {
-    return Math.floor(Math.random() * max)
+    return Math.floor(Math.random() * max);
 }
 
 function getComputerChoice() {
@@ -31,17 +31,17 @@ function playGame() {
 
     function playRound(humanChoice, computerChoice) {
         // Guard Clause
-        if (humanPoints === winningScore || computerPoints === winningScore) return
+        if (humanPoints === winningScore || computerPoints === winningScore) return;
         const roundWinner = determineRoundWinner(humanChoice, computerChoice);
 
         awardRoundPoints(roundWinner);
         if (roundWinner === "human") {
             roundResultDisplay.textContent = 'Player won this round.';
-            playerScore.textContent = `Player score: ${humanPoints}`;
+            playerScore.textContent = humanPoints;
         } else if (roundWinner === "computer") {
             roundResultDisplay.textContent = `Computer won this round.`;
-            computerScore.textContent = `Computer score: ${computerPoints}`;
-        } else roundResultDisplay.textContent =  "Tie detected";
+            computerScore.textContent = computerPoints;
+        } else roundResultDisplay.textContent = "Tie detected";
 
         announceGameWinner();
     }
@@ -52,44 +52,88 @@ function playGame() {
     }
 
     function announceGameWinner() {
+        if (humanPoints < winningScore && computerPoints < winningScore) return;
+
+        gameWinner.classList.add("game-winner");
+        gameWinner.hidden = false;
+
         if (humanPoints === winningScore) {
             gameWinner.textContent = "Player Won!";
-        }
-        else if (computerPoints === winningScore) {
+            playerCard.classList.add("score-card-winner");
+        } else if (computerPoints === winningScore) {
             gameWinner.textContent = "Computer Won!";
+            computerCard.classList.add("score-card-winner");
         }
     }
 
     function createChoiceButton(label, choice) {
         const button = document.createElement('button');
+        button.type = "button";
         button.textContent = label;
         button.addEventListener('click', () => playRound(choice, getComputerChoice()));
 
         return button;
     }
 
-    const choiceContainer = document.createElement('div');
+    function createScoreCard(label, scoreElement) {
+        const card = document.createElement('div');
+        card.classList.add('score-card');
+        const labelElement = document.createElement('p');
+        labelElement.classList.add('score-label');
+        labelElement.textContent = label;
+        card.append(labelElement, scoreElement);
+
+        return card;
+    }
+
+    const gameContainer = document.querySelector("#game");
+
+    const gameHint = document.createElement('p');
+    gameHint.classList.add('game-hint');
+    gameHint.textContent = `First to ${winningScore} points wins`;
+
+    const choiceHint = document.createElement('p');
+    choiceHint.id = "choice-label";
+    choiceHint.classList.add("choice-hint");
+    choiceHint.textContent = "Choose your move";
+
     const rockBtn = createChoiceButton("Rock", "rock");
     const paperBtn = createChoiceButton("Paper", "paper");
     const scissorsBtn = createChoiceButton("Scissors", "scissors");
-    choiceContainer.append(rockBtn, paperBtn, scissorsBtn);
 
+    const choiceContainer = document.createElement('div');
+    choiceContainer.classList.add("choices");
+    choiceContainer.setAttribute("role", "group");
+    choiceContainer.setAttribute("aria-labelledby", choiceHint.id);
+    const scoreCards = document.createElement('div');
+    scoreCards.classList.add('score-cards');
     const roundResultDisplay = document.createElement('div');
-
+    roundResultDisplay.classList.add('round-result');
+    roundResultDisplay.setAttribute("role", "status");
     const scoreboard = document.createElement('div');
     const scoreTitle = document.createElement("h2");
+    scoreTitle.classList.add("score-title");
     const playerScore = document.createElement('p');
+    playerScore.classList.add('score-value');
     const computerScore = document.createElement('p');
-    scoreTitle.textContent = "Scoreboard";
-    playerScore.textContent = "Player score: 0";
-    computerScore.textContent = "Computer score: 0";
-
+    computerScore.classList.add('score-value');
     const gameWinner = document.createElement('p');
-    gameWinner.textContent = "";
+    gameWinner.hidden = true;
+    gameWinner.setAttribute("role", "status");
 
-    scoreboard.append(scoreTitle, playerScore, computerScore, gameWinner);
+    scoreTitle.textContent = "Scoreboard";
+    playerScore.textContent = humanPoints;
+    computerScore.textContent = computerPoints;
 
-    document.body.append(choiceContainer, roundResultDisplay, scoreboard);
+    const playerCard = createScoreCard('Player', playerScore);
+    const computerCard = createScoreCard('Computer', computerScore);
+
+    choiceContainer.append(rockBtn, paperBtn, scissorsBtn);
+    scoreCards.append(playerCard, computerCard);
+    scoreboard.append(scoreTitle, scoreCards);
+    gameContainer.append(
+        gameHint, scoreboard, choiceHint, choiceContainer, roundResultDisplay, gameWinner
+    );
 }
 
 playGame();
